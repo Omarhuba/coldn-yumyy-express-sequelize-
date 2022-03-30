@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ice Cream</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="navbar">
+        <ul>
+          <li><a href="#">HOME</a></li>
+          <li><a href="/flavors">POPULAR FLAVORS</a></li>
+          <li><a href="/register">REGISTER</a></li>
+          <li><a href="/login">LOGIN</a></li>
+          <p>Hello:<%= %></p>
+        </ul>
+      </div>
+      <section class="top">
+        <img
+          src="/images/coldnyummy.png"
+          alt="logo img"
+          width="1200px"
+          height="350px"
+        />
+      </section>
+      <section class="flavors-loop">
+        <div class="grid">
+          <% for(let flavor of flavors){ %>
+            <article class="flavor-card">
+              <img src="/images/1.jpeg" alt="" />
+              <h4><%= flavor.flavorsId %> : <%= flavor.name %></h4>
+              <form action="/vote" method="POST">
+                <input type="email" name="email" placeholder="type your email" />
+                <button>VOTE</button>
+              </form>
+            </article>
+            <% } %>
+        </div>
+      </section>
+      <section class="middle">
+        <!-- <article>
+          <img src="/images/1.jpeg" alt="" />
+          <h4>Bug</h4>
+          <form action="/glass-1" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/2.jpeg" alt="" />
+          <h4>Pickiling</h4>
+          <form action="/glass-2" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/3.jpeg" alt="" />
+          <h4>Red Velvet Ice Cream</h4>
+          <form action="/glass-3" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/4.jpeg" alt="" />
+          <h4>Bubble Gum Ice Cream</h4>
+          <form action="/glass-4" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/5.jpeg" alt="" />
+          <h4>French Vanilla Ice Cream</h4>
+          <form action="/glass-5" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/6.jpeg" alt="" />
+          <h4>Building</h4>
+          <form action="/glass-6" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/7.jpeg" alt="" />
+          <h4>Strawberry</h4>
+          <form action="/glass-7" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/8.jpeg" alt="" />
+          <h4>Neopolitan </h4>
+          <form action="/glass-8" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/9.jpeg" alt="" />
+          <h4>Chocolate Chip Ice Cream</h4>
+          <form action="/glass-9" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article>
+        <article>
+          <img src="/images/10.jpeg" alt="" />
+          <h4>Strawberry Cheescake</h4>
+          <form action="/glass-10" method="POST">
+            <input type="email" name="email" placeholder="type your email" />
+            <button>VOTE</button>
+          </form>
+        </article> -->
+      </section>
+      <section class="bottom">
+        <div class="footer-left">
+          <p class="footer-links">
+            <a class="link-1" href="#">Home</a>
+            <a href="/">Blog</a>
+            <a href="/">About</a>
+            <a href="/">Contact</a>
+          </p>
+          <p>Company Name &copy; 2015</p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

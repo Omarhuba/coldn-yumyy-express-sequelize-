@@ -1,0 +1,108 @@
+html,
+body {
+  height: 100%;
+  width: 1200px;
+  margin: auto;
+  background-color: #eee;
+}
+.wrapper {
+  height: 1950px;
+  background-color: #aaa;
+}
+.navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.navbar ul {
+  background-color: #333;
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  margin: auto;
+  padding: 20px;
+}
+.navbar li a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+.navbar li a:hover {
+  color: chocolate;
+  transition: 0.3s;
+}
+.navbar ul p {
+  font-size: 1.2rem;
+  margin: 0;
+  color: white;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:  repeat(4, 1fr);
+    grid-gap: 20px;
+    padding: 1.5rem 3rem;
+}
+.flavor-card {
+    text-align: center;
+    width: 250px;
+    height: 420px;
+    background-color: chocolate;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px; 
+    margin: 1rem 0;
+}
+.middle img {
+  width: 200px;
+  height: 270px;
+}
+.middle h4 {
+  margin: 10px 0;
+  color: white;
+}
+
+.bottom {
+  background-color: #333;
+  height: 90px;
+}
+.bottom p {
+  padding-left: 1rem;
+  color: white;
+}
+.bottom,
+.footer-links p,
+a {
+  padding: 0.3rem;
+  color: chocolate;
+}
+
+
+
+
+.wrapper-thanks{
+    width: 1200px;
+    height: 1000px;
+    background-color: #aaa;
+    display: grid;
+    place-items: center;
+}
+.thanks{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+.thanks button{
+    margin: 1rem ;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+}
+.thanks a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: #333;
+}
