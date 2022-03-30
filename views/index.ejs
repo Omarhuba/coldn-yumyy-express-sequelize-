@@ -15,7 +15,10 @@
           <li><a href="/flavors">POPULAR FLAVORS</a></li>
           <li><a href="/register">REGISTER</a></li>
           <li><a href="/login">LOGIN</a></li>
-          <p>Hello:<%= %></p>
+          <p>Hello:<%= email %></p>
+          <form action="/logout" method="POST">
+            <button>Logout</button>
+          </form>
         </ul>
       </div>
       <section class="top">
@@ -40,8 +43,8 @@
             <% } %>
         </div>
       </section>
-      <section class="middle">
-        <!-- <article>
+      <!-- <section class="middle">
+        <article>
           <img src="/images/1.jpeg" alt="" />
           <h4>Bug</h4>
           <form action="/glass-1" method="POST">
@@ -120,8 +123,8 @@
             <input type="email" name="email" placeholder="type your email" />
             <button>VOTE</button>
           </form>
-        </article> -->
-      </section>
+        </article>
+      </section> -->
       <section class="bottom">
         <div class="footer-left">
           <p class="footer-links">

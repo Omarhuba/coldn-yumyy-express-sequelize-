@@ -5,7 +5,7 @@ module.exports = database =>{
     class Users extends Model {}
 
     Users.init({
-        // name:{
+        // username:{
         //     type: DataTypes.STRING,  allowNull: false
         // },
         userId: {

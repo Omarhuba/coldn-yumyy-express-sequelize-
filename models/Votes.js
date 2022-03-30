@@ -9,14 +9,18 @@ module.exports = database =>{
         // },
         votesId: {
             type: DataTypes.INTEGER,
-            //  allowNull: false,
-            // autoIncrement: true,
-            // foreignKey: true 
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
         },
         email:{
             type: DataTypes.STRING,  
             // allowNull: false
         },
+        // flavors_id:{
+        //     type: DataTypes.STRING,  
+        //     // allowNull: false
+        // },
       
     },{
         sequelize: database,

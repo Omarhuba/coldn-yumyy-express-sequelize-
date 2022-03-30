@@ -15,10 +15,11 @@ module.exports = database =>{
             type: DataTypes.STRING,
             allowNull: false,
         },
-        flavors_counter: {
+        flavors_id: {
             type: DataTypes.STRING,
             // allowNull: false,
         },
+      
     },{
         sequelize: database,
         modelName: 'Flavors',

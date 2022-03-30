@@ -13,6 +13,9 @@ const Flavors = setupFlavors(sequelize)
 const Votes = setupVotes(sequelize)
 
 
+// Users.belongsTo(Flavors, {through: Votes, foreignKey: 'user_id'})
+// Flavors.belongsTo(Users, {through: Votes, foreignKey: 'flavors_id'})
+
 module.exports = {Users, Flavors, Votes};
 
 
