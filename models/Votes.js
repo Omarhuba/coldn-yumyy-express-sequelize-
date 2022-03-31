@@ -14,7 +14,7 @@ module.exports = database =>{
             primaryKey: true,
         },
         email:{
-            type: DataTypes.STRING,  
+            type: DataTypes.TEXT,  
             // allowNull: false
         },
         // flavors_id:{

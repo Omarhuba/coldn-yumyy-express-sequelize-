@@ -5,15 +5,16 @@ module.exports = database =>{
     class Users extends Model {}
 
     Users.init({
-        // username:{
-        //     type: DataTypes.STRING,  allowNull: false
-        // },
-        userId: {
-            type: DataTypes.INTEGER,
-            //  allowNull: false,
-            autoIncrement: true,
-            primaryKey: true 
+        username:{
+            type: DataTypes.STRING,
+              allowNull: false
         },
+        // userId: {
+        //     type: DataTypes.INTEGER,
+        //     //  allowNull: false,
+        //     autoIncrement: true,
+        //     primaryKey: true 
+        // },
         email:{
             type: DataTypes.STRING,  
             // allowNull: false
@@ -25,7 +26,7 @@ module.exports = database =>{
     },{
         sequelize: database,
         modelName: 'User',
-        timestamps: false
+        timestamps: false,
     })
     Users.sync({force: true})
     return Users
