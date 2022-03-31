@@ -1,6 +1,6 @@
 const express = require('express')
 require('dotenv').config()
-const {Users, Flavors,Votes} = require('./models')
+const {Users, Flavors} = require('./models')
 const session = require('cookie-session')
 const bcrypt = require('bcryptjs')
 
@@ -44,25 +44,38 @@ app.post('/register', async (req,res)=>{
     res.redirect('/welcome')
 })
 
-app.post("/login", async (req, res) => {
-    let { email, password } = req.body;
-    console.log(req.body);
-    const login = await Users.findOne({ where: { email: email } });
-    console.log(login);
-    const result = bcrypt.compareSync(password, login.password);
-    console.log(result);
-    if (result) {
-        res.redirect('/');
-    } else {
-        res.send("errrrroooorrrrr");
+
+app.post('/login', async(req,res)=>{
+    const {username, email, password} = req.body
+    const login = await Users.findOne({where: {email:email, username:username}})
+    if(!login){
+        res.send('errroooorrr')
+    }else if(bcrypt.compareSync(password, login.password)){
+        req.session.user ={ username: login.username, id:login.id}
+        res.redirect('/welcomeLogin')
+    }else{
+        res.send('ierrrroooorrr')
     }
-});
+})
+// app.post("/login", async (req, res) => {
+//     let {username, email, password } = req.body;
+//     // console.log(req.body);
+//     const login = await Users.findOne({ where: { email: email } });
+//     console.log(login);
+//     const result = bcrypt.compareSync( password, login.password );
+//     console.log(result);
+//     if (result) {
+//         res.redirect('/');
+//     } else {
+//         res.send("errrrroooorrrrr");
+//     }
+// });
 
 
 app.get("/", async (req, res) => {
     const flavors = await Flavors.findAll()
-    const user = req.body
-     res.render('index', { flavors, user: req.session.user });
+    const user = req.body.user
+     res.render('index', { flavors, user: req.session.user  });
      console.log(flavors);
     //  req.session.email = {
     //     email: user.email,
@@ -92,7 +105,7 @@ app.get("/flavors", async (req, res) => {
 
 app.post('/vote', async(req,res)=>{
     const {email} = req.body
-    const annonymEmail = await Votes.create({email})
+    const annonymEmail = await Users.create({email})
     console.log(annonymEmail);
     // res.send('email inserted!')
     res.redirect('/thanks')
@@ -105,13 +118,15 @@ app.get("/thanks", (req, res) => {
 
 app.get('/welcome', (req,res) => {
     res.render('welcome', {user: req.session.user})
-    // res.render('welcome', {username: req.session.user})
+})
+app.get('/welcomeLogin', (req,res) => {
+    res.render('welcome', {user: req.session.user})
 })
 
 
 
 app.post('/logout', (req,res) => {
-req.session = null
+// req.session = null
 res.redirect('/')
 })
 

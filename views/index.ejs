@@ -15,7 +15,12 @@
           <li><a href="/flavors">POPULAR FLAVORS</a></li>
           <li><a href="/register">REGISTER</a></li>
           <li><a href="/login">LOGIN</a></li>
-          <p>Hello:<%= user.username %></p>
+          <li><% if( user.username ) { %>
+            <h1>Hi: <%= user.username %></h1>
+            <%} else { %>
+              <p>Hello:<%='' %></p>
+            <% } %> 
+          </li>
           <form action="/logout" method="POST">
             <button>Logout</button>
           </form>
@@ -33,7 +38,7 @@
         <div class="grid">
           <% for(let flavor of flavors){ %>
             <article class="flavor-card">
-              <img src="/images/1.jpeg" alt="" />
+              <img src=<%= flavor.images %>  alt="images" width="200px" height="250px"/>
               <h4><%= flavor.flavorsId %> : <%= flavor.name %></h4>
               <form action="/vote" method="POST">
                 <input type="email" name="email" placeholder="type your email" />

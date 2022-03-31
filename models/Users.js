@@ -5,16 +5,16 @@ module.exports = database =>{
     class Users extends Model {}
 
     Users.init({
-        username:{
-            type: DataTypes.STRING,
-              allowNull: false
-        },
         // userId: {
         //     type: DataTypes.INTEGER,
-        //     //  allowNull: false,
+        //      allowNull: false,
         //     autoIncrement: true,
         //     primaryKey: true 
         // },
+        username:{
+            type: DataTypes.STRING,
+            //   allowNull: false
+        },
         email:{
             type: DataTypes.STRING,  
             // allowNull: false

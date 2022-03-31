@@ -1,7 +1,7 @@
 const {Sequelize} = require('sequelize')
 const setupUser = require('./Users')
 const setupFlavors = require('./Flavors')
-const setupVotes = require('./Votes')
+// const setupVotes = require('./Votes')
 
 const sequelize = new Sequelize( {
     dialect: 'sqlite',
@@ -10,19 +10,19 @@ const sequelize = new Sequelize( {
 
 const Users = setupUser(sequelize)
 const Flavors = setupFlavors(sequelize)
-const Votes = setupVotes(sequelize)
+// const Votes = setupVotes(sequelize)
 
 
-Flavors.hasMany(Users)
-Users.belongsTo(Flavors)
-Votes.belongsTo(Flavors)
+    Flavors.hasMany( Users )
+    Users.belongsTo( Flavors )
 
 
+// sequelize.sync({force: false}).then( ()=> {
+//     console.log("Database Configured");
+// });
+// module.exports = {User, Client};
 
-// Users.belongsTo(Flavors, {through: Votes, foreignKey: 'user_id'})
-// Flavors.belongsTo(Users, {through: Votes, foreignKey: 'flavors_id'})
-
-module.exports = {Users, Flavors, Votes};
+module.exports = {Users, Flavors};
 
 
 
