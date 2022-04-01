@@ -1,33 +1,41 @@
 const { Model, DataTypes } = require('sequelize')
-const bcrypt = require('bcryptjs')
+// const bcrypt = require('bcryptjs')
+const Flavors = require('./Flavors')
 
 module.exports = database =>{
     class Users extends Model {}
 
     Users.init({
-        // userId: {
-        //     type: DataTypes.INTEGER,
-        //      allowNull: false,
-        //     autoIncrement: true,
-        //     primaryKey: true 
-        // },
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true, 
+            autoIncrement: true,
+            allowNull: false,
+        },
         username:{
             type: DataTypes.STRING,
-            //   allowNull: false
+            unique: true
+            //   allowNull: false,
         },
         email:{
             type: DataTypes.STRING,  
-            // allowNull: false
+            allowNull: false
         },
         password:{
             type: DataTypes.STRING,
             //   allowNull: false
         },
+        // flavors_id:{
+        //     type: DataTypes.INTEGER,
+        //       allowNull: true,
+        //       references:{model: Flavors, key: 'id'}
+        // },
+     
     },{
         sequelize: database,
         modelName: 'User',
         timestamps: false,
     })
-    Users.sync({force: true})
+   
     return Users
 }

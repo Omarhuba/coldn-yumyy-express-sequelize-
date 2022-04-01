@@ -1,7 +1,7 @@
+require('dotenv').config()
 const {Sequelize} = require('sequelize')
 const setupUser = require('./Users')
 const setupFlavors = require('./Flavors')
-// const setupVotes = require('./Votes')
 
 const sequelize = new Sequelize( {
     dialect: 'sqlite',
@@ -10,11 +10,13 @@ const sequelize = new Sequelize( {
 
 const Users = setupUser(sequelize)
 const Flavors = setupFlavors(sequelize)
-// const Votes = setupVotes(sequelize)
 
 
-    Flavors.hasMany( Users )
-    Users.belongsTo( Flavors )
+    // Flavors.hasMany( Users )
+    // Users.belongsTo( Flavors )
+    Flavors.hasMany(Users, {foreignKey: 'vote'})
+    Users.belongsTo(Flavors, {foreignKey: 'vote', targetKey: 'id'})
+
 
 
 // sequelize.sync({force: false}).then( ()=> {

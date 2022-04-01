@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <%- include('./layout/header') %> 
+
     <a href="/">Back</a>
     <h1>this is Login</h1>
-    <div class="wrapper">
+    <div class="wrapper-login">
         <div class="form">
             <form action="/login" method="POST">
                 <input type="text" name="username" placeholder="Type your username">
@@ -17,8 +21,9 @@
                 <input type="text" name="password" placeholder="Type your password">
                 <button>LOGIN</button>
             </form>
-            <a href="/register">Register/a>
+            <a href="/register">Register </a>
         </div>
     </div>
+    <%- include('./layout/footer') %> 
 </body>
 </html>

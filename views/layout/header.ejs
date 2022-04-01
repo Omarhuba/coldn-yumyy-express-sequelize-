@@ -1,0 +1,25 @@
+<div class="navbar">
+  <ul>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/flavors">FLAVORS</a></li>
+    <li><a href="/register">REGISTER</a></li>
+    <li><a href="/login">LOGIN</a></li>
+    <li>
+      <% if( user ) { %>
+      <h1>Hi: <%= user.username %></h1>
+      <%} else { %>
+      <h1>Hi:<%='' %></h1>
+      <% } %>
+    </li>
+
+    <button><a href="/logout">logout</a></button>
+  </ul>
+</div>
+<section class="top">
+  <img
+    src="/images/coldnyummy.png"
+    alt="logo img"
+    width="1200px"
+    height="350px"
+  />
+</section>
