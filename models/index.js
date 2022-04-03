@@ -14,8 +14,8 @@ const Flavors = setupFlavors(sequelize)
 
     // Flavors.hasMany( Users )
     // Users.belongsTo( Flavors )
-    Flavors.hasMany(Users, {foreignKey: 'vote'})
-    Users.belongsTo(Flavors, {foreignKey: 'vote', targetKey: 'id'})
+    Flavors.hasMany(Users, {foreignKey: 'flavors_id'})
+    Users.belongsTo(Flavors, {foreignKey: 'flavors_id', targetKey: 'id'})
 
 
 

@@ -11,18 +11,36 @@
     <div class="wrapper">
      
       <%- include('./layout/header') %> 
-
-
+      <section class="top">
+        <img
+          src="/images/coldnyummy.png"
+          alt="logo img"
+          width="1200px"
+          height="350px"
+        />
+      </section>
+      
+        
+         
       <section class="flavors-loop">
         <div class="grid">
           <% for(let flavor of flavors){ %>
             <article class="flavor-card">
               <img src=<%= flavor.images %>  alt="images" width="200px" height="250px"/>
               <h4><%= flavor.id %> : <%= flavor.name %></h4>
-              <form action="/vote?flavors_id=<%= flavor.id %>"  method="POST">
-                <input type="email" name="email" placeholder="type your email" />
-                <button>VOTE</button>
-              </form>
+              
+              <% if( user ) { %>
+                <form action="/vote?flavors_id=<%= flavor.id %>"  method="POST">
+                  <p>Hi: <%= user.username %></p>
+                  <button>VOTE</button>
+                <%} else { %>
+                  <form action="/vote?flavors_id=<%= flavor.id %>"  method="POST">
+                    <input type="email" name="email" placeholder="type your email" />
+                    <button>VOTE</button>
+                  </form>
+                <% } %>
+
+
             </article>
             <% } %>
         </div>

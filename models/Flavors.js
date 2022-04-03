@@ -20,6 +20,10 @@ module.exports = (database) => {
         type: DataTypes.BLOB,
         allowNull: false,
       },
+       flavors_id:{
+            type: DataTypes.INTEGER,
+              allowNull: true,
+        },
     },
     {
       sequelize: database,

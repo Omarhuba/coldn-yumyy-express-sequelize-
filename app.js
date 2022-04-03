@@ -13,23 +13,88 @@ app.use(express.static("public"));
 app.use(session({ name: "session", keys: [process.env.SESSION_SECRET] }));
 app.set("view engine", "ejs");
 
+
+//original ----- get('/')
 app.get("/", async (req, res) => {
+  const flavors = await Flavors.findAll();
+  const user = req.body.user;
+  res.render("index", { flavors, user: req.session.user });
+
+});
+
+app.get("/flavors", async (req, res) => {
   const flavors = await Flavors.findAll();
   const user = req.body.user;
   const counter = await Flavors.findAll({
     attributes: ["name"],
     include: [{ model: Users, required: true }],
     group: "email",
-    order: [[sequelize.fn("COUNT", "vote"), "DESC"]],
-  });
+    order: [[sequelize.fn("COUNT", "flavors_id"), "DESC"]],
+  })
+  .then((counter) =>
+  counter.map((count) => ({
+    amount: count.Users.length,
+    name: count.name,
+    flavors_id: count.id,//----??????
+  }))
+  )
+  .then((count)=>{
+    return count.sort((a,b) => b.amount - a.amount );
+  })
   console.log(counter);
-  res.render("index", { flavors, user: req.session.user, counter });
-  //  console.log(flavors);
-  //  req.session.email = {
-  //     email: user.email,
-  //     id: user.id
-  // }
+  res.render("flavors", { flavors, user: req.session.user, counter });
 });
+
+
+
+app.post("/flavors", async (req, res) => {
+  const { name, flavorsId, flavors_id } = req.body;
+  const flavors = await Flavors.create({ name, flavorsId, flavors_id });
+  res.send("Flavors inserted!");
+});
+
+
+
+/////original post vote
+// app.post("/vote", async (req, res) => {
+  //   const { email } = req.body;
+  //   const { flavors_id } = req.query;
+  
+  //   const annonymEmail = await Users.create({ email, flavors_id });
+  //   // console.log(email, flavors_id);
+  //   // console.log(annonymEmail);
+  //   res.send('email inserted!')
+  //   // res.redirect('/thanks')
+  // });
+  
+  /////original post vote
+// app.post("/vote", async (req, res) => {
+//   const { email } = req.body;
+//   const { flavors_id } = req.query;
+//   const votedFlavor = await Flavors.findOne({ where: { id: flavors_id } });
+//   votedFlavor.increment("flavors_id", { by: 1 });
+//   await Users.create({email, flavors_id});
+//   res.redirect('/thanks')
+// });  
+
+app.post("/vote", async (req, res) => {
+  const { email } = req.body;
+  const { flavors_id } = req.query;
+  const votedFlavor = await Flavors.findOne({ where: { id: flavors_id } });
+  votedFlavor.increment("flavors_id", { by: 1 });
+  const duplicateEmail = await Users.findOne({where: {email: email}})
+  if(!duplicateEmail){
+    const userData = await Users.create({email, flavors_id});
+    res.redirect('/thanks')
+  }else{
+    res.send('eoorrrooorrrooorrr')
+  }
+});  
+
+
+
+
+
 
 app.get("/register", async (req, res) => {
   const flavors = await Flavors.findAll();
@@ -90,30 +155,9 @@ app.post("/login", async (req, res) => {
 //     }
 // });
 
-app.post("/flavors", async (req, res) => {
-  const { name, flavorsId, flavors_id } = req.body;
-  const flavors = await Flavors.create({ name, flavorsId, flavors_id });
-  res.send("Flavors inserted!");
-  // console.log(flavors);
-});
 
-app.get("/flavors", async (req, res) => {
-  const flavors = await Flavors.findAll();
-  const user = req.body.user;
-  res.render("flavors", { flavors, user: req.session.user });
-  // console.log(flavors);
-});
 
-app.post("/vote", async (req, res) => {
-  const { email } = req.body;
-  const { flavors_id } = req.query;
 
-  const annonymEmail = await Users.create({ email, flavors_id });
-  console.log(email, flavors_id);
-  // console.log(annonymEmail);
-  // res.send('email inserted!')
-  // res.redirect('/thanks')
-});
 
 app.get("/thanks", (req, res) => {
   res.render("thanks");

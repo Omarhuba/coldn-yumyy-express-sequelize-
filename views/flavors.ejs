@@ -11,11 +11,23 @@
     <%- include('./layout/header') %>
 
     <div class="wrapper-flavors">
-      <div name="">
-        <% for(let flavor of flavors){ %>
-        <h4><%= flavor.id %>:<%= flavor.name %></h4>
-        <% } %>
-      </div>
+        <% let number = [] %> 
+      <% let name = [] %> 
+      <% for(let count of counter){ %>
+         <% number.push(count.amount) %>   
+         <% name.push(count.name) %>   
+         <% } %> 
+         <h2>Flavor <%= name[0] %> Röstas av : <%= number[0] %> </h2>
+         <h2>Flavor <%= name[1] %> Röstas av : <%= number[1] %> </h2>
+         <h2>Flavor <%= name[2] %> Röstas av : <%= number[2] %> </h2>
+         <h2>Flavor <%= name[3] %> Röstas av : <%= number[3] %> </h2>
+         <h2>Flavor <%= name[4] %> Röstas av : <%= number[4] %> </h2>
+         <h2>Flavor <%= name[5] %> Röstas av : <%= number[5] %> </h2>
+         <h2>Flavor <%= name[6] %> Röstas av : <%= number[6] %> </h2>
+         <h2>Flavor <%= name[7] %> Röstas av : <%= number[7] %> </h2>
+         <h2>Flavor <%= name[8] %> Röstas av : <%= number[8] %> </h2>
+         <h2>Flavor <%= name[9] %> Röstas av : <%= number[9] %> </h2>
+
     </div>
 
     <%- include('./layout/footer') %>
