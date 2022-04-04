@@ -27,7 +27,7 @@
           <% for(let flavor of flavors){ %>
             <article class="flavor-card">
               <img src=<%= flavor.images %>  alt="images" width="200px" height="250px"/>
-              <h4><%= flavor.id %> : <%= flavor.name %></h4>
+              <h3> <%= flavor.name %></h3>
               
               <% if( user ) { %>
                 <form action="/vote?flavors_id=<%= flavor.id %>"  method="POST">
@@ -35,8 +35,10 @@
                   <button>VOTE</button>
                 <%} else { %>
                   <form action="/vote?flavors_id=<%= flavor.id %>"  method="POST">
-                    <input type="email" name="email" placeholder="type your email" />
-                    <button>VOTE</button>
+                    <div class="card-container">
+                      <input type="email" name="email" placeholder="Your Email" />
+                      <button>VOTE</button>
+                    </div>
                   </form>
                 <% } %>
 

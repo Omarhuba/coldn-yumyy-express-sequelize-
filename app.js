@@ -87,7 +87,7 @@ app.post("/vote", async (req, res) => {
     const userData = await Users.create({email, flavors_id});
     res.redirect('/thanks')
   }else{
-    res.send('eoorrrooorrrooorrr')
+    res.redirect('errorDuplicate')
   }
 });  
 
@@ -161,6 +161,9 @@ app.post("/login", async (req, res) => {
 
 app.get("/thanks", (req, res) => {
   res.render("thanks");
+});
+app.get("/errorDuplicate", (req, res) => {
+  res.render("errorDuplicate");
 });
 
 app.get("/welcome", (req, res) => {
