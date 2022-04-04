@@ -48,8 +48,8 @@ app.get("/flavors", async (req, res) => {
 
 
 app.post("/flavors", async (req, res) => {
-  const { name, flavorsId, flavors_id } = req.body;
-  const flavors = await Flavors.create({ name, flavorsId, flavors_id });
+  const { name, images,  flavorsId, flavors_id } = req.body;
+  const flavors = await Flavors.create({ name, images, flavorsId, flavors_id });
   res.send("Flavors inserted!");
 });
 
