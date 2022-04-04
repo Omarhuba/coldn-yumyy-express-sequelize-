@@ -53,20 +53,6 @@ app.post("/flavors", async (req, res) => {
   res.send("Flavors inserted!");
 });
 
-
-
-/////original post vote
-// app.post("/vote", async (req, res) => {
-  //   const { email } = req.body;
-  //   const { flavors_id } = req.query;
-  
-  //   const annonymEmail = await Users.create({ email, flavors_id });
-  //   // console.log(email, flavors_id);
-  //   // console.log(annonymEmail);
-  //   res.send('email inserted!')
-  //   // res.redirect('/thanks')
-  // });
-  
   /////original post vote
 // app.post("/vote", async (req, res) => {
 //   const { email } = req.body;
@@ -78,22 +64,28 @@ app.post("/flavors", async (req, res) => {
 // });  
 
 app.post("/vote", async (req, res) => {
-  const { email } = req.body;
+  let email = null;
+  if(req.session.user){
+    email = req.session.user.email
+  }else{
+    email = req.body.email
+    // const {email} = req.body
+  }
   const { flavors_id } = req.query;
-  const votedFlavor = await Flavors.findOne({ where: { id: flavors_id } });
-  votedFlavor.increment("flavors_id", { by: 1 });
+  console.log(email,flavors_id);
+  //const votedFlavor = await Flavors.findOne({ where: { id: flavors_id } });
+  //votedFlavor.increment("flavors_id", { by: 1 });
   const duplicateEmail = await Users.findOne({where: {email: email}})
+  console.log(duplicateEmail);
   if(!duplicateEmail){
     const userData = await Users.create({email, flavors_id});
     res.redirect('/thanks')
   }else{
-    res.redirect('errorDuplicate')
+    duplicateEmail.update({flavors_id:flavors_id})
+    res.redirect('/thanks')
+    // res.redirect('errorDuplicate')
   }
 });  
-
-
-
-
 
 
 app.get("/register", async (req, res) => {
@@ -101,6 +93,22 @@ app.get("/register", async (req, res) => {
   const user = req.body.user;
   res.render("register", { flavors, user: req.session.user });
 });
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
+  const { flavors_id } = req.query;
+  let hash = generateHash(password);
+  const duplicateEmail = await Users.findOne({where: {email: email}})
+  if(!duplicateEmail){
+    const user = await Users.create({ username, email, password: hash });
+    req.session.user = user;
+    res.redirect("/welcome");
+  }else{
+    res.redirect('errorDuplicate')
+  }
+  // console.log({ username, email, password: hash });
+});
+
+
 app.get("/login", async (req, res) => {
   const flavors = await Flavors.findAll();
   const user = req.body.user;
@@ -111,21 +119,6 @@ function generateHash(password) {
   const hash = bcrypt.hashSync(password);
   return hash;
 }
-app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  let hash = generateHash(password);
-  const user = await Users.create({ username, email, password: hash });
-  // res.send('User inserted!')
-  console.log({ username, email, password: hash });
-  // req.session.email = {
-  //     // username: user.username,
-  //     email: user.email,
-  //     id: user.id
-  // }
-
-  req.session.user = { username: user.username };
-  res.redirect("/welcome");
-});
 
 app.post("/login", async (req, res) => {
   const { username, email, password } = req.body;
@@ -133,12 +126,12 @@ app.post("/login", async (req, res) => {
     where: { email: email, username: username },
   });
   if (!login) {
-    res.send("errroooorrr");
+    res.redirect("errorLogin");
   } else if (bcrypt.compareSync(password, login.password)) {
     req.session.user = { username: login.username, id: login.id };
     res.redirect("/welcomeLogin");
   } else {
-    res.send("ierrrroooorrr");
+    res.redirect("ierrrroooorrr");
   }
 });
 // app.post("/login", async (req, res) => {
@@ -165,6 +158,9 @@ app.get("/thanks", (req, res) => {
 app.get("/errorDuplicate", (req, res) => {
   res.render("errorDuplicate");
 });
+app.get("/errorLogin", (req, res) => {
+  res.render("errorLogin");
+});
 
 app.get("/welcome", (req, res) => {
   res.render("welcome", { user: req.session.user });
@@ -174,7 +170,7 @@ app.get("/welcomeLogin", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  req.session.user = null;
+  req.session.user = null; /////???????????
   res.redirect("/");
 });
 
