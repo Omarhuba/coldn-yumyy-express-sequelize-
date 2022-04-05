@@ -5,6 +5,10 @@ const { Users, Flavors } = require("./models");
 const session = require("cookie-session");
 const bcrypt = require("bcryptjs");
 
+
+const {register, createRegister} = require('./Controller/register')
+
+
 const app = express();
 
 app.use(express.json());
@@ -88,25 +92,10 @@ app.post("/vote", async (req, res) => {
 });  
 
 
-app.get("/register", async (req, res) => {
-  const flavors = await Flavors.findAll();
-  const user = req.body.user;
-  res.render("register", { flavors, user: req.session.user });
-});
-app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  const { flavors_id } = req.query;
-  let hash = generateHash(password);
-  const duplicateEmail = await Users.findOne({where: {email: email}})
-  if(!duplicateEmail){
-    const user = await Users.create({ username, email, password: hash });
-    req.session.user = user;
-    res.redirect("/welcome");
-  }else{
-    res.redirect('errorDuplicate')
-  }
-  // console.log({ username, email, password: hash });
-});
+app.get("/register", register() );
+
+
+app.post("/register", createRegister());
 
 
 app.get("/login", async (req, res) => {
@@ -115,10 +104,7 @@ app.get("/login", async (req, res) => {
   res.render("login", { flavors, user: req.session.user });
 });
 
-function generateHash(password) {
-  const hash = bcrypt.hashSync(password);
-  return hash;
-}
+
 
 app.post("/login", async (req, res) => {
   const { username, email, password } = req.body;
