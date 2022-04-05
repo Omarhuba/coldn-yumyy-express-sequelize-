@@ -82,8 +82,8 @@ app.post("/vote", async (req, res) => {
     res.redirect('/thanks')
   }else{
     duplicateEmail.update({flavors_id:flavors_id})
-    res.redirect('/thanks')
-    // res.redirect('errorDuplicate')
+    // res.redirect('/thanks')
+    res.redirect('errorDuplicate')
   }
 });  
 
