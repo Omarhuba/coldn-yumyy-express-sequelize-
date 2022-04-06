@@ -37,7 +37,7 @@
                 <%} else { %>
                   <form action="/vote?flavors_id=<%=flavor.id%>"  method="POST">
                     <div class="card-container">
-                      <input type="email" name="email" placeholder="Your Email" />
+                      <input type="email" name="email" placeholder="Your Email" required/>
                       <button>VOTE</button>
                     </div>
                   </form>

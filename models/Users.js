@@ -3,7 +3,11 @@ const { Model, DataTypes } = require('sequelize')
 const Flavors = require('./Flavors')
 
 module.exports = database =>{
-    class Users extends Model {}
+    class Users extends Model {
+        hasVoted (){
+         return   this.flavors_id != null
+        }
+    }
 
     Users.init({
         id: {
