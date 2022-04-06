@@ -11,20 +11,19 @@
     <%- include('./layout/header') %>
 
     <div class="wrapper-admin">
-        <form action="/flavors" method="POST" class="admin-container">
-            <h1>Flavors Editor For Admin</h1>
-            <hr>
+      <form action="/flavors" method="POST" class="admin-container">
+        <h1>Flavors Editor For Admin</h1>
+        <hr />
 
-    <label for="name"><b>Name</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required />
 
-    <label for="image"><b>Flavor Image</b></label>
-    <input type="file" name="images" required>
+        <label for="image"><b>Flavor Image</b></label>
+        <input type="file" name="images" required />
 
-    <button type="submit" class="btn">Add Flavor</button>
+        <button type="submit" class="btn">Add Flavor</button>
       </form>
-      <hr>
-      
+      <hr />
     </div>
     <%- include('./layout/footer') %>
   </body>

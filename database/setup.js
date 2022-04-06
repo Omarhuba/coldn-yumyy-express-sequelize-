@@ -1,4 +1,4 @@
-const { Users, Flavors} = require('../models')
+const { Users, Flavors } = require("../models");
 
-Users.sync({force: true})
-Flavors.sync({force: true})
+Users.sync({ force: true });
+Flavors.sync({ force: true });

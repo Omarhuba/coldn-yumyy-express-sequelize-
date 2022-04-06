@@ -20,13 +20,10 @@ app.use(session({ name: "session", keys: [process.env.SESSION_SECRET] }));
 app.set("view engine", "ejs");
 
 
-//original ----- get('/')
 app.get("/", async (req, res) => {
   const flavors = await Flavors.findAll();
   const user = req.body.user;
   const session = req.session.user
-  // console.log(user);
-  // console.log(user);
   res.render("index", { flavors, user: req.session.user });
 
 });
@@ -42,14 +39,8 @@ app.post("/vote", async (req, res) => {
   }else{
     email = req.body.email
   }
-  // const {email} = req.body
-  // console.log(email);
   const { flavors_id } = req.query;
-  // console.log(email,flavors_id);
-  //const votedFlavor = await Flavors.findOne({ where: { id: flavors_id } });
-  //votedFlavor.increment("flavors_id", { by: 1 });
   const user = await Users.findOne({where: {email: email}})
-  // console.log(duplicateEmail);
   if(!user){
     const userData = await Users.create({email, flavors_id});
     res.redirect('/thanks')

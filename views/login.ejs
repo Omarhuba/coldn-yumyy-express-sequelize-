@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <%- include('./layout/header') %> 
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <%- include('./layout/header') %>
 
     <div class="wrapper-login">
-        <form action="/login" method="POST">
-            <div class="login-container">
-                <h1>Login</h1>
-                <hr>
-                
-                <label for="name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="username" id="name" required>
-                
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="email" required>
-                
-                <label for="psw"><b>Password</b></label>
-                <input type="text" placeholder="Enter Password" name="password" id="psw" required>
-                
-                <hr>
-                
-                <button type="submit" class="loginbtn">Login</button>
-            </div>
-            <div class="container signin">
-                <p>Do you want an account? <a href="/register">Register</a>.</p>
-            </div>
-        </form>
+      <form action="/login" method="POST">
+        <div class="login-container">
+          <h1>Login</h1>
+          <hr />
+
+          <label for="name"><b>Name</b></label>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            name="username"
+            id="name"
+            required
+          />
+
+          <label for="email"><b>Email</b></label>
+          <input
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            id="email"
+            required
+          />
+
+          <label for="psw"><b>Password</b></label>
+          <input
+            type="text"
+            placeholder="Enter Password"
+            name="password"
+            id="psw"
+            required
+          />
+
+          <hr />
+
+          <button type="submit" class="loginbtn">Login</button>
+        </div>
+        <div class="container signin">
+          <p>Do you want an account? <a href="/register">Register</a>.</p>
+        </div>
+      </form>
     </div>
-        
-        <%- include('./layout/footer') %> 
-    </body>
-    </html>
+
+    <%- include('./layout/footer') %>
+  </body>
+</html>

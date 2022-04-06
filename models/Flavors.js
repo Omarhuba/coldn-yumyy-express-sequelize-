@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require("sequelize");
-// const sequelize = require('../database/dev.sqlite')
 
 module.exports = (database) => {
   class Flavors extends Model {}
@@ -20,10 +19,6 @@ module.exports = (database) => {
         type: DataTypes.BLOB,
         allowNull: false,
       },
-      //  flavors_id:{
-      //       type: DataTypes.INTEGER,
-      //         allowNull: true,
-      //   },
     },
     {
       sequelize: database,

@@ -6,13 +6,12 @@
     <li><a href="/login">LOGIN</a></li>
     <li>
       <% if( user ) { %>
-        <h1>Hi: <%= user.username %></h1>
-        <a href="/logout">Logout</a>
-        <a href="/admin">Admin</a>
+      <h1>Hi: <%= user.username %></h1>
+      <a href="/logout">Logout</a>
+      <a href="/admin">Admin</a>
       <%} else { %>
       <h1><%='' %></h1>
       <% } %>
     </li>
-
   </ul>
 </div>
