@@ -6,11 +6,6 @@ const session = require("cookie-session");
 const bcrypt = require("bcryptjs");
 
 
-const {register, createRegister} = require('./Controller/register')
-const {getLogin, postLogin} = require('./Controller/login')
-const {getFlavors, postFlavors} = require('./Controller/flavors')
-
-
 const app = express();
 
 app.use(express.json());
@@ -55,15 +50,83 @@ app.post("/vote", async (req, res) => {
 
 
 
-app.get("/flavors", getFlavors());
-app.post("/flavors", postFlavors());
+app.get("/flavors", async (req, res) => {
+  const flavors = await Flavors.findAll();
+  const user = req.body.user;
+  const counter = await Flavors.findAll({
+    attributes: ["name"],
+    include: [{ model: Users, required: true }],
+    group: "email",
+    order: [[sequelize.fn("COUNT", "flavors_id"), "DESC"]],
+  })
+    .then((counter) =>
+      counter.map((count) => ({
+        amount: count.Users.length,
+        name: count.name,
+        flavors_id: count.id, //----??????
+      }))
+    )
+    .then((count) => {
+      return count.sort((a, b) => b.amount - a.amount);
+    });
+  res.render("flavors", { flavors, user: req.session.user, counter });
+});
+app.post("/flavors", async (req, res) => {
+  const { name, images, flavorsId, flavors_id } = req.body;
+  const flavors = await Flavors.create({ name, images, flavorsId, flavors_id });
+  res.redirect("/");
+});
 
-app.get("/register", register() );
-app.post("/register", createRegister());
 
 
-app.get("/login", getLogin());
-app.post("/login", postLogin());
+
+app.get("/register", async (req, res) => {
+  const flavors = await Flavors.findAll();
+  const user = req.body.user;
+  res.render("register", { flavors, user: req.session.user });
+});
+
+function generateHash(password) {
+  const hash = bcrypt.hashSync(password);
+  return hash;
+}
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
+  const { flavors_id } = req.query;
+  const user = req.session.user;
+  let hash = generateHash(password);
+  const duplicateEmail = await Users.findOne({ where: { email: email } });
+  if (!duplicateEmail) {
+    const user = await Users.create({ username, email, password: hash });
+    req.session.user = user;
+    console.log(user);
+    res.redirect("/welcome");
+  } else {
+    res.redirect("errorDuplicate");
+  }
+});
+
+
+app.get("/login", async (req, res) => {
+  const flavors = await Flavors.findAll();
+  const user = req.session.user;
+  console.log(user);
+  res.render("login", { flavors, user: req.session.user });
+});
+app.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+  const login = await Users.findOne({
+    where: { email: email, username: username },
+  });
+  if (!login) {
+    res.redirect("errorLogin");
+  } else if (bcrypt.compareSync(password, login.password)) {
+    req.session.user = { username: login.username, id: login.id, email: email};
+    res.redirect("/welcomeLogin");
+  } else {
+    res.redirect("ierrrroooorrr");
+  }
+});
 
 
 app.get('/admin', async(req,res)=>{
